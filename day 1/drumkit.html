@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drum kit</title>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background-color: #0f0f0f;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+      .keys {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+      .btn {
+        padding: 20px;
+        /* s */
+
+        height: 100px;
+        width: 100px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 34px;
+        align-items: center;
+        font-weight: bold;
+        border-image: linear-gradient(90deg, red, green) 1;
+        border-image-slice: 1;
+      }
+      .key {
+        transition: all 2s ease;
+      }
+      .playing {
+        transform: scale(1.1);
+        border-color: purple;
+        box-shadow: 0 0 10px white;
+      }
+      div span {
+        font-weight: 100;
+        font-size: 14px;
+      }
+      h4 {
+        color: #a3f7bf;
+      }
+      h1 {
+        color: #8bcdcd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="keys">
+      <h1>DRUMKIT</h1>
+
+      <h4>Type the keyboard letter shown below</h4>
+      <div class="container">
+        <div data-key="65" class="key">
+          <button class="btn">
+            <kbd>A</kbd> <br /><span class="sound">CLAP</span>
+          </button>
+        </div>
+        <div data-key="83" class="key">
+          <button class="btn">S <span class="sound">HIHAT</span></button>
+        </div>
+        <div data-key="68" class="key">
+          <button class="btn">D <span class="sound">KIRK</span></button>
+        </div>
+      </div>
+      <div class="container">
+        <div data-key="70" class="key">
+          <button class="btn">F <span class="sound">OPENHART</span></button>
+        </div>
+        <div data-key="71" class="key">
+          <button class="btn">G <span class="sound">BOOM</span></button>
+        </div>
+        <div data-key="72" class="key">
+          <button class="btn">H <span class="sound">RIDE</span></button>
+        </div>
+      </div>
+      <div class="container">
+        <div data-key="74" class="key">
+          <button class="btn">J <span>SNARE</span></button>
+        </div>
+        <div data-key="75" class="key">
+          <button class="btn">K <span>TOM</span></button>
+        </div>
+
+        <div data-key="76" class="key">
+          <button class="btn">L <span>TINK</span></button>
+        </div>
+      </div>
+    </div>
+
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
+
+    <script>
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key= "${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        audio.currentTime = 0; //rewind to the start
+        audio.play();
+        key.classList.add("playing");
+      }
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return;
+
+        //skip if its not transforming
+        this.classList.remove("playing");
+        console.log(this);
+      }
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
+      window.addEventListener("keydown", playSound);
+    </script>
+  </body>
+</html>
