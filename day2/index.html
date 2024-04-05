@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get data from external server</title>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>hello world</h1>
+
+    <script>
+      function displayName(response) {
+        let hey = response.data.title;
+        let h1 = document.querySelector("h1");
+        h1.innerHTML = hey;
+      }
+
+      let url = "https://jsonplaceholder.typicode.com/posts/1";
+      axios.get(url).then(displayName);
+    </script>
+  </body>
+</html>
