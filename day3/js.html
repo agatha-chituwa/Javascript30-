@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>hello world</h1>
+    <script>
+      /**
+       * @param {number} n
+       * @return {Function} counter
+       */
+      //   var createCounter = function (n) {
+      //     return function () {
+      //       return n++;
+      //     };
+      //   };
+      //   const counter = createCounter(-2);
+      //   console.log(counter());
+      //   console.log(counter());
+      //   console.log(counter());
+      //   console.log(counter());
+
+      const apiKey = "3tcfof90f4d5fcef43527800bff1b7ea";
+      let query = "lisbon";
+      const url = `https://api.shecodes.io/weather/v1/current?query=${query}&key=${apiKey}`;
+      function fun(response) {
+        console.log(response);
+      }
+      axios.get(url).then(fun);
+    </script>
+  </body>
+</html>
